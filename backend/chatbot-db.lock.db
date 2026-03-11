@@ -1,0 +1,6 @@
+#FileLock
+#Tue Mar 10 14:36:52 IST 2026
+server=192.168.56.1\:50675
+hostName=DAALI
+method=file
+id=19cd6ff97ed82a2d6bf23cbab7b701bd792d7d35a77

@@ -1,0 +1,256 @@
+/* ============================================
+   GLOBAL THEME VARIABLES
+   ============================================ */
+
+:root[data-theme="dark"] {
+  --bg-primary: #212121;
+  --bg-secondary: #171717;
+  --bg-sidebar: #171717;
+  --bg-input: #2f2f2f;
+  --bg-message-user: #2f2f2f;
+  --bg-message-ai: transparent;
+  --bg-hover: #2a2a2a;
+  --bg-active: #3a3a3a;
+  --bg-code: #1e1e1e;
+  --bg-modal: #2f2f2f;
+
+  --text-primary: #ececec;
+  --text-secondary: #8e8ea0;
+  --text-muted: #5a5a6e;
+  --text-on-accent: #fff;
+
+  --accent: #19c37d;
+  --accent-hover: #1aab6d;
+  --accent-rgb: 25, 195, 125;
+
+  --border: #3a3a3a;
+  --border-input: #4a4a4a;
+
+  --shadow: 0 0 30px rgba(0,0,0,0.3);
+  --shadow-sm: 0 1px 6px rgba(0,0,0,0.2);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+
+  --scrollbar-thumb: #3a3a3a;
+  --scrollbar-track: transparent;
+
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+
+  --sidebar-width: 260px;
+}
+
+:root[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --bg-sidebar: #f0f0f0;
+  --bg-input: #f4f4f5;
+  --bg-message-user: #f4f4f5;
+  --bg-message-ai: transparent;
+  --bg-hover: #e8e8ea;
+  --bg-active: #e0e0e2;
+  --bg-code: #f4f4f5;
+  --bg-modal: #ffffff;
+
+  --text-primary: #0d0d0d;
+  --text-secondary: #6b6b7b;
+  --text-muted: #9999aa;
+  --text-on-accent: #fff;
+
+  --accent: #10a37f;
+  --accent-hover: #0e9070;
+  --accent-rgb: 16, 163, 127;
+
+  --border: #e5e5e7;
+  --border-input: #d0d0d4;
+
+  --shadow: 0 0 20px rgba(0,0,0,0.08);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+  --scrollbar-thumb: #d0d0d4;
+  --scrollbar-track: transparent;
+
+  --danger: #dc2626;
+  --warning: #d97706;
+  --info: #2563eb;
+
+  --sidebar-width: 260px;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow: hidden;
+  height: 100vh;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ============================================
+   SCROLLBARS
+   ============================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ============================================
+   BUTTONS BASE
+   ============================================ */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  transition: all 0.15s ease;
+}
+
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ============================================
+   INPUT BASE
+   ============================================ */
+input, textarea {
+  font-family: inherit;
+  outline: none;
+  border: none;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.fade-in { animation: fadeIn 0.25s ease forwards; }
+.slide-in { animation: slideIn 0.2s ease forwards; }
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================
+   TYPING INDICATOR
+   ============================================ */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  animation: pulse 1.4s ease infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ============================================
+   MODAL OVERLAY
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal {
+  background: var(--bg-modal);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.2s ease;
+}
+
+/* ============================================
+   TOAST
+   ============================================ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-active);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease;
+  box-shadow: var(--shadow);
+}
