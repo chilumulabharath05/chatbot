@@ -37,7 +37,6 @@ public class ChatController {
         try {
             Long conversationId = request.getConversationId();
 
-            // Create new conversation if not provided
             if (conversationId == null) {
                 Conversation newConv = conversationService.createConversation(
                     userId, "New Chat", request.getModel()
@@ -45,22 +44,17 @@ public class ChatController {
                 conversationId = newConv.getId();
             }
 
-            // Build message content (with file if provided)
             String messageContent = request.getMessage();
             if (request.getFileContent() != null && !request.getFileContent().isEmpty()) {
-                messageContent += "\n\n[Attached file: " + request.getFileName() + "]\n" + request.getFileContent();
+                messageContent = messageContent + "\n\n[Attached file: " + request.getFileName() + "]\n" + request.getFileContent();
             }
 
-            // Get conversation history
             List<Message> history = conversationService.getMessages(conversationId);
 
-            // Save user message
             conversationService.addMessage(conversationId, userId, "user", messageContent, null);
 
-            // Call AI
             String aiResponse = aiService.generateResponse(messageContent, history, request.getModel());
 
-            // Save AI response
             Message savedMsg = conversationService.addMessage(
                 conversationId, userId, "assistant", aiResponse, request.getModel()
             );
