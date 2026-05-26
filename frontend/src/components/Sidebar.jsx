@@ -6,10 +6,11 @@ import useAuthStore from '../context/authStore'
 import { formatDistanceToNow } from 'date-fns'
 
 const groupConversations = (conversations) => {
+  const convs = Array.isArray(conversations) ? conversations : []
   const now = new Date()
   const today = [], yesterday = [], week = [], older = []
 
-  conversations.forEach(conv => {
+  convs.forEach(conv => {
     const d = new Date(conv.updatedAt || conv.createdAt)
     const diff = Math.floor((now - d) / (1000 * 60 * 60 * 24))
     if (diff === 0) today.push(conv)
@@ -145,7 +146,7 @@ export default function Sidebar({ isOpen, onClose }) {
       </div>
 
       <div className="sidebar-conversations">
-        {conversations.length === 0 ? (
+        {(!Array.isArray(conversations) || conversations.length === 0) ? (
           <div style={{ padding: '20px 12px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
             No conversations yet.<br />Start a new chat!
           </div>
