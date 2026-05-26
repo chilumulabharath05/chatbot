@@ -15,9 +15,11 @@ const useChatStore = create((set, get) => ({
   loadConversations: async () => {
     try {
       const res = await api.get('/api/conversations')
-      set({ conversations: res.data })
+      const conversations = Array.isArray(res.data) ? res.data : []
+      set({ conversations })
     } catch (err) {
       console.error('Failed to load conversations:', err)
+      set({ conversations: [] })
     }
   },
 
