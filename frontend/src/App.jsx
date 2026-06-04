@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import useThemeStore from './context/themeStore'
+import useAuthStore from './context/authStore'
 import MainLayout from './components/MainLayout'
+import AuthPage from './components/AuthPage'
 
 export default function App() {
   const { initTheme } = useThemeStore()
+  const { token } = useAuthStore()
   const [validating, setValidating] = useState(true)
 
   useEffect(() => {
@@ -12,19 +15,8 @@ export default function App() {
   }, [])
 
   if (validating) {
-    return (
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        height: '100vh', background: 'var(--bg-primary)'
-      }}>
-        <div className="typing-indicator">
-          <div className="typing-dot" />
-          <div className="typing-dot" />
-          <div className="typing-dot" />
-        </div>
-      </div>
-    )
+    return <div>Loading...</div>
   }
 
-  return <MainLayout />
+  return token ? <MainLayout /> : <AuthPage />
 }
