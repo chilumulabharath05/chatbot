@@ -28,7 +28,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
 
-    @Value("${cors.allowed.origins:http://localhost:5173}")
+    @Value("${cors.allowed.origins:http://localhost:5173,https://chatbot-five-coral-73.vercel.app/}")
     private String allowedOrigins;
 
     @Bean
